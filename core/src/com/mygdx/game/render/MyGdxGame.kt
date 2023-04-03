@@ -14,12 +14,9 @@ class MyGdxGame : ApplicationAdapter() {
     private var sp: SpriteManager = SpriteManager()
     private var x = 0f
     private var y = 0f
-    private var viewport: Viewport? = null
-    private var camera: Camera? = null
     private var idk: Idk? = null
 
     override fun create() {
-        sp.loadTexture("img", "badlogic.jpg")
         idk = Idk()
         idk!!.start()
     }
