@@ -12,8 +12,8 @@ import com.mygdx.game.core.tiles.TileTags
 
 class MyGdxGame : ApplicationAdapter() {
     private var sp: SpriteManager = SpriteManager()
-    private var x = 0f
-    private var y = 0f
+    private var scaleX = 32f
+    private var scaleY = 32f
     private var idk: Idk? = null
 
     override fun create() {
@@ -39,14 +39,13 @@ class MyGdxGame : ApplicationAdapter() {
         sp.loadTexture("plain", "plain.png")
         sp.loadTexture("sea", "sea.png")
         val map = idk!!.map
-        val sizeOfTexture = sp.textures["forest"]!!.width.toFloat()
 
         for (column in map.indices){
             for (row in map[column].indices){
                 when (map[column][row].tag) {
-                    TileTags.SEA -> sp.batch!!.draw(sp.textures["sea"],column*sizeOfTexture,row*sizeOfTexture )
-                    TileTags.FOREST -> sp.batch!!.draw(sp.textures["forest"],column*sizeOfTexture,row*sizeOfTexture )
-                    TileTags.PLAIN -> sp.batch!!.draw(sp.textures["plain"],column*sizeOfTexture,row*sizeOfTexture )
+                    TileTags.SEA -> sp.batch!!.draw(sp.textures["sea"],column*scaleX,row*scaleY,scaleX,scaleY )
+                    TileTags.FOREST -> sp.batch!!.draw(sp.textures["forest"],column*scaleX,row*scaleY,scaleX,scaleY )
+                    TileTags.PLAIN -> sp.batch!!.draw(sp.textures["plain"],column*scaleX,row*scaleY,scaleX,scaleY )
                 }
             }
         }
