@@ -9,7 +9,7 @@ import com.mygdx.game.core.Game
 import com.mygdx.game.core.tiles.TileTags
 
 
-class WorldScreen(var game: Game? = null) : com.badlogic.gdx.Game() {
+class WorldScreen(game: Game) : ScreenManager(game) {
     private var sp: SpriteManager = SpriteManager()
     private var scaleX = 64f
     private var scaleY = 64f
@@ -20,37 +20,49 @@ class WorldScreen(var game: Game? = null) : com.badlogic.gdx.Game() {
     private var playerPositionY = 0f
 
     private val camera = OrthographicCamera()
-    private val viewport= ExtendViewport(100f, 100f, camera)
+    private val viewport = ExtendViewport(100f, 100f, camera)
     override fun create() {
-        if (game == null) game = Game(11)
         game!!.start()
         camera.zoom += 5
+
 
         sp.loadTexture("forest", "tiles/forest.png")
         sp.loadTexture("plain", "tiles/plain.png")
         sp.loadTexture("sea", "tiles/sea.png")
         sp.loadTexture("castle", "tiles/castle.png")
-        sp.loadTexture("player", "entities/player.png")
+        sp.loadTexture("player", "entities/player/player.png")
 
-        playerPositionX = screenCenterX + game!!.player!!.x.toFloat() * scaleX
-        playerPositionY = screenCenterY + game!!.player!!.y.toFloat() * scaleY
+
+
     }
 
 
     override fun render() {
         ScreenUtils.clear(0f, 0f, 0f, 1f)
-        viewport.apply()
-        camera.position.set(playerPositionX, playerPositionY, 0f)
-        camera.update()
-        sp.start(camera)
-
-        game!!.update()
-        renderMap()
 
         playerPositionX = screenCenterX + game!!.player!!.x.toFloat() * scaleX
         playerPositionY = screenCenterY + game!!.player!!.y.toFloat() * scaleY
 
+        camera.position.set(
+            playerPositionX + sp.textures["player"]!!.width,
+            playerPositionY + sp.textures["player"]!!.width,
+            0f
+        )
+        camera.update()
+
+        sp.start(camera)
+        game!!.update()
+        renderMap()
+
         sp.batch!!.end()
+    }
+
+    override fun pause() {
+        TODO("Not yet implemented")
+    }
+
+    override fun resume() {
+        TODO("Not yet implemented")
     }
 
     override fun dispose() = sp.dispose()
