@@ -1,5 +1,7 @@
 package com.mygdx.game.render
 
+import com.badlogic.gdx.graphics.Camera
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
@@ -11,9 +13,10 @@ class SpriteManager {
         textures[name] = Texture(path)
     }
 
-    fun start(){
+    fun start(camera: Camera){
         batch = SpriteBatch()
         batch!!.begin()
+        batch!!.projectionMatrix = camera.combined
     }
 
     fun dispose(){
