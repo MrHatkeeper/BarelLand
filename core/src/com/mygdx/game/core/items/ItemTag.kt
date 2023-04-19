@@ -1,5 +1,5 @@
 package com.mygdx.game.core.items
 
-enum class ItemTags {
+enum class ItemTag {
     WEAPON, TRINKET, ARMOR, PET
 }
