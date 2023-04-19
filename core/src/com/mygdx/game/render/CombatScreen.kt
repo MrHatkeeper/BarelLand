@@ -3,9 +3,9 @@ package com.mygdx.game.render
 
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.utils.ScreenUtils
-import com.mygdx.game.core.Game
+import com.mygdx.game.core.GameWorld
 
-class CombatScreen(game: Game): ScreenManager(game) {
+class CombatScreen(gameWorld: GameWorld): ScreenManager(gameWorld) {
     private var sp: SpriteManager = SpriteManager()
 
     private var scaleX = 128f

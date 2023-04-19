@@ -1,6 +1,5 @@
 package com.mygdx.game.render
 
-import com.badlogic.gdx.ApplicationListener
-import com.mygdx.game.core.Game
+import com.mygdx.game.core.GameWorld
 
-abstract class ScreenManager(val game: Game): com.badlogic.gdx.Game()
+abstract class ScreenManager(val gameWorld: GameWorld): com.badlogic.gdx.Game()

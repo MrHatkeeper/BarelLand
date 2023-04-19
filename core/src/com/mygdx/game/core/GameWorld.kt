@@ -7,7 +7,7 @@ import com.mygdx.game.core.tiles.Tile
 import com.mygdx.game.core.tiles.TileTags
 import kotlin.math.roundToInt
 
-class Game(mapSize: Int) {
+class GameWorld(mapSize: Int) {
     private val defaultField = Tile(TileTags.SEA, 0)
     val map: MutableList<MutableList<Tile>> = MutableList(mapSize) { MutableList(mapSize) { defaultField } }
     var player: Player? = null
@@ -36,6 +36,8 @@ class Game(mapSize: Int) {
         val startCombatChance =
             (playerField.startCombat + (playerField.startCombat * player!!.chanceMultiplayer).roundToInt()..100).random()
         if (startCombatChance >= 80) {
+            val combat = GameCombat(player!!, map)
+            combat.startCombat()
             player!!.chanceMultiplayer = 0.0
         } else player!!.chanceMultiplayer += 0.1
     }

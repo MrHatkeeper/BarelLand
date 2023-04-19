@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
-import com.mygdx.game.core.Game
+import com.mygdx.game.core.GameWorld
 import com.mygdx.game.core.tiles.TileTags
 
 
-class WorldScreen(game: Game) : ScreenManager(game) {
+class WorldScreen(gameWorld: GameWorld) : ScreenManager(gameWorld) {
     private var sp: SpriteManager = SpriteManager()
     private var scaleX = 64f
     private var scaleY = 64f
@@ -22,7 +22,7 @@ class WorldScreen(game: Game) : ScreenManager(game) {
     private val camera = OrthographicCamera()
     private val viewport = ExtendViewport(100f, 100f, camera)
     override fun create() {
-        game!!.start()
+        gameWorld!!.start()
         camera.zoom += 5
 
 
@@ -40,8 +40,8 @@ class WorldScreen(game: Game) : ScreenManager(game) {
     override fun render() {
         ScreenUtils.clear(0f, 0f, 0f, 1f)
 
-        playerPositionX = screenCenterX + game!!.player!!.x.toFloat() * scaleX
-        playerPositionY = screenCenterY + game!!.player!!.y.toFloat() * scaleY
+        playerPositionX = screenCenterX + gameWorld!!.player!!.x.toFloat() * scaleX
+        playerPositionY = screenCenterY + gameWorld!!.player!!.y.toFloat() * scaleY
 
         camera.position.set(
             playerPositionX + sp.textures["player"]!!.width,
@@ -51,7 +51,7 @@ class WorldScreen(game: Game) : ScreenManager(game) {
         camera.update()
 
         sp.start(camera)
-        game!!.update()
+        gameWorld!!.update()
         renderMap()
 
         sp.batch!!.end()
@@ -69,13 +69,13 @@ class WorldScreen(game: Game) : ScreenManager(game) {
 
     override fun resize(width: Int, height: Int) {
         viewport.update(width, height)
-        screenCenterY = ((Gdx.graphics.height / 2f) - (game!!.map.size / 2f) * scaleY).toInt()
-        screenCenterX = ((Gdx.graphics.width / 2f) - (game!!.map.size / 2f) * scaleX).toInt()
+        screenCenterY = ((Gdx.graphics.height / 2f) - (gameWorld!!.map.size / 2f) * scaleY).toInt()
+        screenCenterX = ((Gdx.graphics.width / 2f) - (gameWorld!!.map.size / 2f) * scaleX).toInt()
     }
 
     private fun renderMap() {
-        for (column in game!!.map.indices) {
-            for (row in game!!.map[column].indices) {
+        for (column in gameWorld!!.map.indices) {
+            for (row in gameWorld!!.map[column].indices) {
                 sp.batch!!.draw(
                     selectTileToRender(column, row),
                     screenCenterX + column * scaleX,
@@ -89,7 +89,7 @@ class WorldScreen(game: Game) : ScreenManager(game) {
     }
 
     private fun selectTileToRender(y: Int, x: Int): Texture {
-        return when (game!!.map[y][x].tag) {
+        return when (gameWorld!!.map[y][x].tag) {
             TileTags.SEA -> sp.textures["sea"]!!
             TileTags.FOREST -> sp.textures["forest"]!!
             TileTags.PLAIN -> sp.textures["plain"]!!
