@@ -52,14 +52,6 @@ class WorldScreen(gameWorld: GameWorld) : ScreenManager(gameWorld) {
         sp.batch!!.end()
     }
 
-    override fun pause() {
-        TODO("Not yet implemented")
-    }
-
-    override fun resume() {
-        TODO("Not yet implemented")
-    }
-
     override fun dispose() = sp.dispose()
 
     override fun resize(width: Int, height: Int) {
